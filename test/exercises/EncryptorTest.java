@@ -1,5 +1,7 @@
 package exercises;
 
+//Anthony Marquez
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,12 @@ class EncryptorTest {
 	}
 	
 	// Exercise: decrypt this sentence: Nkxg"nqpi"cpf"rtqurgt#
-	
+	@Test
+	void testDecryptWord() throws Exception {
+		String message = "Nkxg\"nqpi\"cpf\"rtqurgt#";
+		Encryptor.decrypt(message);
+		System.out.print(Encryptor.decrypt(message).toString());
+		
+	}
 	
 }
