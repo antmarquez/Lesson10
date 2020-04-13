@@ -1,5 +1,7 @@
 package exercises;
 
+//Anthony Marquez
+
 public class Encryptor {
 
 	public static String encrypt(String encryptMe) {
@@ -10,6 +12,19 @@ public class Encryptor {
 			numericalValue+=2;
 			builder.append((char) numericalValue);
 		}
+		
+		return builder.toString();
+	}
+
+	public static String decrypt(String decryptMe) {
+			
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < decryptMe.length(); i++) {
+			int numericalValue = decryptMe.charAt(i);
+			numericalValue-=2;
+			builder.append((char) numericalValue);
+		}
+		
 		return builder.toString();
 	}
 
