@@ -1,5 +1,7 @@
 package exercises;
 
+//Anthony Marquez
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -11,10 +13,20 @@ class PalindromeTest {
 	@Test
 	void testLoadWords() {
 		assertTrue(testPalindrome.loadWords().contains("apple"));
+		
 	}
 	
 	// 2. Test that a word exists in the dictionary 
+	@Test
+	void testWordExists() {
+		assertTrue(testPalindrome.wordExists().contains("banana"));
+		
+	}
 	
 	// 3. Test that a word is a palindrome
-
+	@Test
+	void testIsPalindrome() {
+		assertTrue(testPalindrome.isPalindrome("kayak"));
+		
+	}
 }
