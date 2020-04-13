@@ -1,5 +1,9 @@
 package exercises;
 
+//Anthony Marquez
+
+import examples.FileHelper;
+import java.util.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -19,6 +23,8 @@ public class Hangman extends KeyAdapter {
 	ArrayList<JLabel> boxes = new ArrayList<JLabel>();
 	int lives = 9;
 	JLabel livesLabel = new JLabel("" + lives);
+	
+	String word;
 
 	public static void main(String[] args) {
 		Hangman hangman = new Hangman();
@@ -26,10 +32,18 @@ public class Hangman extends KeyAdapter {
 		hangman.createUI();
 	}
 
-	private void addPuzzles() {
-		puzzles.push("defenestrate");
-		puzzles.push("fancypants");
-		puzzles.push("elements");
+	public List<String> loadWords() {
+		List<String> wordList = FileHelper.loadFileContentsIntoArrayList("resource/words.txt");
+		return wordList;
+	}
+
+	public void addPuzzles() { 
+		List<String> listWord = loadWords();
+		for (int i = 0; i < 10; i++) {
+			int index = new Random().nextInt(listWord.size());
+			word = listWord.get(index);	
+			puzzles.push(word.toLowerCase().trim());
+		}
 	}
 
 	JPanel panel = new JPanel();
@@ -47,7 +61,7 @@ public class Hangman extends KeyAdapter {
 		frame.addKeyListener(this);
 	}
 
-	private void loadNextPuzzle() {
+	public void loadNextPuzzle() {
 		removeBoxes();
 		lives = 9;
 		livesLabel.setText("" + lives);
@@ -65,16 +79,32 @@ public class Hangman extends KeyAdapter {
 		}
 	}
 
-	private void updateBoxesWithUserInput(char keyChar) {
+	public void updateBoxesWithUserInput(char keyChar) {
 		boolean gotOne = false;
 		for (int i = 0; i < puzzle.length(); i++) {
 			if (puzzle.charAt(i) == keyChar) {
 				boxes.get(i).setText("" + keyChar);
 				gotOne = true;
+				
 			}
 		}
-		if (!gotOne)
+		
+		if (!gotOne) {
 			livesLabel.setText("" + --lives);
+			return;
+			
+		}
+		
+		else {
+			String currentLetters = "";
+			for (int i = 0; i < puzzle.length(); i++) {
+				currentLetters = currentLetters + boxes.get(i).getText();
+			}
+			if (puzzle.equals(currentLetters)) {
+				loadNextPuzzle();
+			}
+		}
+		
 	}
 
 	void createBoxes() {
@@ -105,7 +135,3 @@ public class Hangman extends KeyAdapter {
 	}
 
 }
-
-
-
-
