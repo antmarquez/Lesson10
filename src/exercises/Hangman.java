@@ -38,6 +38,7 @@ public class Hangman extends KeyAdapter {
 	}
 
 	public void addPuzzles() { 
+
 		List<String> listWord = loadWords();
 		for (int i = 0; i < 10; i++) {
 			int index = new Random().nextInt(listWord.size());
@@ -68,6 +69,21 @@ public class Hangman extends KeyAdapter {
 		puzzle = puzzles.pop();
 		System.out.println("puzzle is now " + puzzle);
 		createBoxes();
+		
+		try {
+			if (!puzzle.matches("[A-Za-z]+")) {
+				throw new Exception("Word " + puzzle + " contains special characters!");
+			}
+
+		} 
+		catch (Exception b) {
+			System.out.println(b.getMessage());
+			loadNextPuzzle();
+		}
+		finally {
+			System.out.println("puzzle is now " + puzzle);
+			createBoxes();
+		}
 	}
 
 	public void keyTyped(KeyEvent arg0) {
